@@ -6,10 +6,16 @@ using DataAccessLayer.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IServiceService,ServiceManager>();
 builder.Services.AddScoped<IServiceDal, EfServiceDal>();
+
+builder.Services.AddScoped<ITeamService, TeamManager>();
+builder.Services.AddScoped<ITeamDal, EfTeamDal>();
+
 builder.Services.AddDbContext<AgricultureContext>();
 
 var app = builder.Build();

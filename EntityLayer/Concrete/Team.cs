@@ -9,12 +9,12 @@ namespace EntityLayer.Concrete
     public class Team
     {
         public int TeamId { get; set; }
-        public string PersonName { get; set; }
-        public string Title { get; set; }
-        public string ImageUrl { get; set; }
-        public string FacebookUrl { get; set; }
-        public string InstagramUrl { get; set; }
-        public string WebsiteUrl { get; set; }
-        public string TwitterUrl { get; set; }
+        public required string PersonName { get; set; }
+        public required string Title { get; set; }
+        public required string ImageUrl { get; set; }
+        public required string FacebookUrl { get; set; }
+        public required string InstagramUrl { get; set; }
+        public required string WebsiteUrl { get; set; }
+        public required string TwitterUrl { get; set; }
     }
 }

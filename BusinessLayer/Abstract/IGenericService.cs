@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IGenericService<T> where T : class, new()
+    public interface IGenericService<T> where T : class
     {
         void Insert(T t);
         void Update(T t);

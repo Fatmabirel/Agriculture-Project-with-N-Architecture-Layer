@@ -1,4 +1,7 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
+using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriculturePresentation.Controllers
@@ -17,5 +20,66 @@ namespace AgriculturePresentation.Controllers
             var values = _teamService.GetListAll();
             return View(values);
         }
+
+        [HttpGet]
+        public IActionResult AddTeam()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddTeam(Team team)
+        {
+            TeamValidator validationRules = new TeamValidator();
+            ValidationResult result = validationRules.Validate(team);
+            if (result.IsValid)
+            {
+                _teamService.Insert(team);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var failure in result.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                return View(team);
+            }
+        }
+
+        public IActionResult DeleteTeam(int id)
+        {
+            var value = _teamService.GetById(id);
+            _teamService.Delete(value);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult EditTeam(int id)
+        {
+            var value = _teamService.GetById(id);
+            return View(value);
+        }
+
+        [HttpPost]
+        public IActionResult EditTeam(Team team)
+        {
+            TeamValidator validationRules = new TeamValidator();
+            ValidationResult result = validationRules.Validate(team);
+            if (result.IsValid)
+            {
+                _teamService.Update(team);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var failure in result.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                return View(team);
+            }
+        }
+
+
     }
 }
